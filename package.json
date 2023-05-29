@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/app.js",
-    "dev": "ts-node ./src/app.ts"
+    "start": "node ./bin/monolithic.js",
+    "dev": "ts-node ./src/monolithic.ts"
   },
   "dependencies": {
     "@types/node": "^20.2.3",
