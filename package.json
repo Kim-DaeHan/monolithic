@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/node": "^20.2.3",
+    "mysql": "^2.18.1",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
