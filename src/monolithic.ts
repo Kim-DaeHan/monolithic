@@ -9,10 +9,34 @@ const members = require('./monolithic_members')
 const goods = require('./monolithic_goods')
 const purchases = require('./monolithic_purchases')
 
-export type Packet = {
+export interface Packet {
   key: any
   errorCode: number
   errorMessage: string
+}
+
+export interface goodsType {
+  key?: any
+  id?: number
+  name?: string
+  category?: string
+  price?: number
+  description?: string
+}
+
+export interface membersType {
+  key?: any
+  id?: number
+  username?: string
+  password?: string
+}
+
+export interface purchasesType {
+  key?: any
+  id?: number
+  userid?: number
+  goodsid?: number
+  date?: Date
 }
 
 /**
@@ -22,7 +46,7 @@ const server = http
   .createServer((req: IncomingMessage, res: ServerResponse) => {
     const method: string | undefined = req.method // 메서드를 얻어 옴
     const uri = url.parse(req.url, true)
-    const pathName = uri.pathName // URI를 얻어 옴
+    const pathName = uri.pathname // URI를 얻어 옴
 
     // POST와 PUT이면 데이터를 읽음
     if (method === 'POST' || method === 'PUT') {
@@ -46,8 +70,15 @@ const server = http
       // GET과 DELETE이면 query 정보를 읽음
       onRequest(res, method!, pathName, uri.query)
     }
+    console.log('서버 정상 실행!')
+    console.log(method, uri, pathName)
   })
   .listen(8000)
+
+// 함수 오버라이딩
+function onRequest(res: ServerResponse, method: string, pathName: '/members', params: membersType): void
+function onRequest(res: ServerResponse, method: string, pathName: '/goods', params: goodsType): void
+function onRequest(res: ServerResponse, method: string, pathName: '/purchases', params: purchasesType): void
 
 /**
  * 요청에 대해 회원 관리, 상품 관리, 구매 관리 모듈별로 분기
@@ -57,7 +88,12 @@ const server = http
  * @param params 입력 파라미터
  * @returns
  */
-function onRequest(res: ServerResponse, method: string, pathName: string, params: any) {
+function onRequest(
+  res: ServerResponse,
+  method: string,
+  pathName: string,
+  params: membersType | goodsType | purchasesType,
+) {
   // 기능별 호출
   switch (pathName) {
     case '/members':

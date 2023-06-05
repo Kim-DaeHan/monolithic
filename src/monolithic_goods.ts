@@ -1,5 +1,5 @@
 import { ServerResponse } from 'http'
-import { Packet } from './monolithic'
+import { Packet, goodsType } from './monolithic'
 
 const mysql = require('mysql') // mysql 확장 모듈 참조
 
@@ -18,7 +18,7 @@ exports.onRequest = function (
   res: ServerResponse,
   method: string,
   pathName: string,
-  params: any,
+  params: goodsType,
   cb: (res: ServerResponse, packet: Packet) => void,
 ) {
   switch (method) {
@@ -46,7 +46,7 @@ exports.onRequest = function (
  * @param params 입력 파라미터
  * @param cb 콜백
  */
-function register(method: string, pathName: string, params: any, cb: (response: Packet) => void) {
+function register(method: string, pathName: string, params: goodsType, cb: (response: Packet) => void) {
   let response: Packet = {
     key: params.key,
     errorCode: 0,
@@ -84,7 +84,7 @@ function register(method: string, pathName: string, params: any, cb: (response: 
  * @param params 입력 파라미터
  * @param cb 콜백
  */
-function inquiry(method: string, pathName: string, params: any, cb: (response: Packet) => void) {
+function inquiry(method: string, pathName: string, params: goodsType, cb: (response: Packet) => void) {
   let response: Packet & { results: string[] } = {
     key: params.key,
     errorCode: 0,
@@ -116,7 +116,7 @@ function inquiry(method: string, pathName: string, params: any, cb: (response: P
  * @param params 입력 파라미터
  * @param cb 콜백
  */
-function unregister(method: string, pathName: string, params: any, cb: (response: Packet) => void) {
+function unregister(method: string, pathName: string, params: goodsType, cb: (response: Packet) => void) {
   let response: Packet = {
     key: params.key,
     errorCode: 0,
