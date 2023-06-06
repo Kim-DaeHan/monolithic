@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./bin/monolithic.js",
-    "dev": "ts-node ./src/monolithic.ts"
+    "dev": "ts-node ./src/monolithic.ts",
+    "test": "ts-node ./src/client.ts"
   },
   "dependencies": {
     "@types/node": "^20.2.3",

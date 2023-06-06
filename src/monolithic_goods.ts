@@ -62,7 +62,7 @@ function register(method: string, pathName: string, params: goodsType, cb: (resp
     const connection = mysql.createConnection(conn)
     connection.connect()
     connection.query(
-      'insert into good(name, category, price, description) values(? ,? ,?, ?)',
+      'insert into goods(name, category, price, description) values(? ,? ,?, ?)',
       [params.name, params.category, params.price, params.description],
       (error: Error | null, results: any[] | null, fields: Record<string, any>[] | null) => {
         // mysql 에러 처리
